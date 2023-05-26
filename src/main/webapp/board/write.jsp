@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>실습3-1</title>
+<title>ì¤ìµ3-1</title>
 </head>
 <style>
 	h2 {
@@ -24,7 +24,7 @@
 </style>
 <script>
 	function signUp() {
-		alert("정말로 가입 하시겠습니까?");
+		alert("ì ë§ë¡ ê°ì íìê² ìµëê¹?");
 		document.getElementById("regform").style.display = "none";
 		document.getElementById("rname").innerHTML = document.form1.name.value;
 		document.getElementById("remail").innerHTML = document.form1.email.value;
@@ -32,24 +32,24 @@
 	}
 </script>
 <body>
-	<h2>회원 가입</h2>
+	<h2>íì ê°ì</h2>
 	<hr>
 	<div id="regform">
 		<!-- 아래 주소, 파라미터로 post로 보내줘!  -->
 		<form name="form1" method="post" action="/webP_noticeBoard/upload_notice?action=addNotice">
-			<label>이름</label><br>
+			<label>ì´ë¦</label><br>
 			<input type="text" name="name" size="40"><br>
 			<hr>
-			<label>이메일</label><br>
+			<label>ì´ë©ì¼</label><br>
 			<input type="email" name="email" size="40"><br>
-			<button type="button" onClick="signUp()">가입</button>
+			<button type="button" onClick="signUp()">ê°ì</button>
 		</form>
 	</div>
 	<div id="result" class="result">
-		<h3>가입 정보</h3>
+		<h3>ê°ì ì ë³´</h3>
 		<hr>
-		이름: <span id="rname"></span><br>
-		이메일: <span id="remail"></span><br>
+		ì´ë¦: <span id="rname"></span><br>
+		ì´ë©ì¼: <span id="remail"></span><br>
 	</div>
 	<script>
 		document.getElementById("result").style.display = "none";
