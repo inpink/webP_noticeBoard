@@ -1,0 +1,13 @@
+@charset "EUC-KR";
+
+h2 {
+	text-align: center;
+	
+}
+
+button {
+	width: 50px;
+    margin: auto;
+    display: block;
+}
+

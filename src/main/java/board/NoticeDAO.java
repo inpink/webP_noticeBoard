@@ -1,4 +1,4 @@
-package boardMC;
+package board;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -31,7 +31,7 @@ public class NoticeDAO {
 		Connection conn = null;
 		try {
 			Class.forName(JDBC_DRIVER);
-			conn = DriverManager.getConnection(JDBC_URL,"jwbook","1234");
+			conn = DriverManager.getConnection(JDBC_URL,"jwbookdb","1234");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -112,5 +112,30 @@ public class NoticeDAO {
 		}
 	}
 	
+	public void fixNotice(Notice n) throws Exception {
+		Connection conn = open();
+		
+		String sql = "update notices set EMAIL=?, date=FORMATDATETIME(CURRENT_TIMESTAMP(),'yyyy-MM-dd'), title=?, pwd=?, content=? where aid=?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		
+		
+		try(conn; pstmt) {
+			
+			Notice orinN= getNotice(n.getAid());
+			String orinPwd= orinN.getPwd();
+			String newPwd= n.getPwd();
+			
+			if (! orinPwd.equals(newPwd)) throw new Exception("비밀번호가 맞지 않습니다!");
+			
+			pstmt.setString(1, n.getEmail());
+			pstmt.setString(2,  n.getTitle());
+			pstmt.setString(3,n.getPwd());
+			pstmt.setString(4, n.getContent());
+			pstmt.setInt(5, n.getAid());
+			
+			pstmt.executeUpdate();
+		}
+	}
+	 
 			
 }
