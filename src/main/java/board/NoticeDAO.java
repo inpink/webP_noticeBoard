@@ -9,24 +9,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 //Data Access Object
-//DB¿¡ Á¢±ÙÇÏ´Â ·ÎÁ÷ ºĞ¸®
-//DAO´Â MVC Áß Model¿¡ ÇØ´ç 
+//DBï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ğ¸ï¿½
+//DAOï¿½ï¿½ MVC ï¿½ï¿½ Modelï¿½ï¿½ ï¿½Ø´ï¿½ 
 
-//»ç¿ë method ¿ä¾à
-//Connection open() :  DB ¿¬°áÀ» °¡Á®¿À´Â ¸Ş¼­µå, DB Á¤º¸ ´ãÀº Connection °´Ã¼ ¹İÈ¯
-//List<Notice> getAll() : ¸ğµç Noticeµé¸¦ Notice °´Ã¼¿¡ ´ã¾Æ List<Notice>ÇüÅÂ·Î °¡Á®¿È
-//Notice getNotice (int aid) : aid¿Í ÀÏÄ¡ÇÏ´Â Notice 1°³¸¦ Notice °´Ã¼·Î ¹İÈ¯ÇÔ
-//void addNotice (Notice n) : News °´Ã¼ nÀ» Db¿¡ ³ÖÀ½
+//ï¿½ï¿½ï¿½ method ï¿½ï¿½ï¿½
+//Connection open() :  DB ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ş¼ï¿½ï¿½ï¿½, DB ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Connection ï¿½ï¿½Ã¼ ï¿½ï¿½È¯
+//List<Notice> getAll() : ï¿½ï¿½ï¿½ Noticeï¿½é¸¦ Notice ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ List<Notice>ï¿½ï¿½ï¿½Â·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//Notice getNotice (int aid) : aidï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½Ï´ï¿½ Notice 1ï¿½ï¿½ï¿½ï¿½ Notice ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½È¯ï¿½ï¿½
+//void addNotice (Notice n) : News ï¿½ï¿½Ã¼ nï¿½ï¿½ Dbï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-//¹Ì»ç¿ë
-//void delNotice(int aid) : aid¿Í ÀÏÄ¡ÇÏ´Â Notice¸¦ »èÁ¦ÇÏ´Â sql¹® ½ÇÇà, ÀÏÄ¡ÇÏ´Â aid°¡ DB¿¡ ¾øÀ¸¸é ¿¡·¯ ¹ß»ı 
+//ï¿½Ì»ï¿½ï¿½
+//void delNotice(int aid) : aidï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½Ï´ï¿½ Noticeï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ sqlï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½Ä¡ï¿½Ï´ï¿½ aidï¿½ï¿½ DBï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ 
 
 public class NoticeDAO {
 	
 	final String JDBC_DRIVER = "org.h2.Driver";
 	final String JDBC_URL = "jdbc:h2:tcp://localhost/~/jwbookdb";
 	
-	// DB ¿¬°áÀ» °¡Á®¿À´Â ¸Ş¼­µå, DBCP¸¦ »ç¿ëÇÏ´Â °ÍÀÌ ÁÁÀ½
+	// DB ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ş¼ï¿½ï¿½ï¿½, DBCPï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public Connection open() {
 		Connection conn = null;
 		try {
@@ -43,23 +43,23 @@ public class NoticeDAO {
 		List<Notice> NoticeList = new ArrayList<>();
 		
 		//TODO 
-		//±×³É date½áµµ ¹®Á¦¾ø¾î º¸ÀÌ´Âµ¥ / PARSEDATETIME´Â string to Date ¶ó°í ÇÔ
-		//Çü½Ä 0000-00-00·Î º¯°æÇÏ·Á¸é ¿À¸¥ÂÊ sql »ç¿ë : select aid, name,email,FORMATDATETIME(DATE, 'yyyy-MM-dd') as cdate  ,title,pwd,content  from notices
+		//ï¿½×³ï¿½ dateï¿½áµµ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì´Âµï¿½ / PARSEDATETIMEï¿½ï¿½ string to Date ï¿½ï¿½ï¿½ ï¿½ï¿½
+		//ï¿½ï¿½ï¿½ï¿½ 0000-00-00ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ sql ï¿½ï¿½ï¿½ : select aid, name,email,FORMATDATETIME(DATE, 'yyyy-MM-dd') as cdate  ,title,pwd,content  from notices
 		String sql = "select aid, name,email,PARSEDATETIME(date,'yyyy-MM-dd hh:mm:ss') as cdate ,title,pwd,content  from notices";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		ResultSet rs = pstmt.executeQuery();
 		
 		try(conn; pstmt; rs) {
 			while(rs.next()) {
-				//TODO "¹æ¸í·Ï ¸ñ·Ï"¿¡¼­ ÇÊ¿äÇÑ µ¥ÀÌÅÍ´Â aid, name, email, date, titleÀÓ. ÀÏ´Ü ´Ù ³Ö¾îÁÜ
+				//TODO "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½"ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ aid, name, email, date, titleï¿½ï¿½. ï¿½Ï´ï¿½ ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½ï¿½
 				Notice n = new Notice();
 				n.setAid(rs.getInt("aid"));
 				n.setName(rs.getString("name"));
 				n.setEmail(rs.getString("email")); 
 				n.setDate(rs.getString("cdate")); 
 				n.setTitle(rs.getString("title"));
-				n.setPwd(rs.getString("pwd")); //ºÒÇÊ¿äÇÒÁöµµ
-				n.setContent(rs.getString("content")); //ºÒÇÊ¿äÇÒÁöµµ
+				n.setPwd(rs.getString("pwd")); //ï¿½ï¿½ï¿½Ê¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+				n.setContent(rs.getString("content")); //ï¿½ï¿½ï¿½Ê¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				
 				NoticeList.add(n);
 			}
@@ -72,17 +72,18 @@ public class NoticeDAO {
 		
 		Notice n = new Notice();
 		
-		//¸¶Âù°¡Áö·Î date 0000-00-00·Î ¹Ş¾Æ¿À·Á¸é FORMATDATETIME(DATE, 'yyyy-MM-dd') »ç¿ë
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ date 0000-00-00ï¿½ï¿½ ï¿½Ş¾Æ¿ï¿½ï¿½ï¿½ï¿½ï¿½ FORMATDATETIME(DATE, 'yyyy-MM-dd') ï¿½ï¿½ï¿½
 		String sql = "select aid, name,email,PARSEDATETIME(date,'yyyy-MM-dd hh:mm:ss') as cdate ,title,pwd,content  from notices where aid=?";
 	
 		PreparedStatement pstmt = conn.prepareStatement(sql);
-		pstmt.setInt(1, aid); //?¿¡ aid ³Ö±â
+		pstmt.setInt(1, aid); //?ï¿½ï¿½ aid ï¿½Ö±ï¿½
+		System.out.println("getNotice ì›ë˜ aid"+aid+sql);
 		ResultSet rs = pstmt.executeQuery();
 		
 		rs.next();
 		
 		try(conn; pstmt; rs) {
-			//"°Ô½Ã±Û ¼öÁ¤"ÇÒ ¶§ ÇÊ¿äÇÑ µ¥ÀÌÅÍ (ÀüºÎ ´Ù ÇÊ¿ä)
+			//"ï¿½Ô½Ã±ï¿½ ï¿½ï¿½ï¿½ï¿½"ï¿½ï¿½ ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ê¿ï¿½)
 			n.setAid(rs.getInt("aid"));
 			n.setName(rs.getString("name"));
 			n.setEmail(rs.getString("email")); 
@@ -102,6 +103,7 @@ public class NoticeDAO {
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		
 		try(conn; pstmt) {
+			System.out.println("DAO addNotice n.getAid()"+n.getAid()+sql);
 			pstmt.setString(1, n.getName());
 			pstmt.setString(2, n.getEmail());
 			pstmt.setString(3, n.getTitle());
@@ -120,12 +122,13 @@ public class NoticeDAO {
 		
 		
 		try(conn; pstmt) {
-			
-			Notice orinN= getNotice(n.getAid());
+			System.out.println("fixNotice n.getAid()"+n.getAid()+sql);
+			//ë¹„ë°€ë²ˆí˜¸ ê°™ì€ì§€ ê²€ì‚¬í•˜ëŠ” ê¸°ëŠ¥
+			/*Notice orinN= getNotice(n.getAid());
 			String orinPwd= orinN.getPwd();
 			String newPwd= n.getPwd();
 			
-			if (! orinPwd.equals(newPwd)) throw new Exception("ºñ¹Ğ¹øÈ£°¡ ¸ÂÁö ¾Ê½À´Ï´Ù!");
+			if (! orinPwd.equals(newPwd)) throw new Exception("ï¿½ï¿½Ğ¹ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê½ï¿½ï¿½Ï´ï¿½!");*/
 			
 			pstmt.setString(1, n.getEmail());
 			pstmt.setString(2,  n.getTitle());
