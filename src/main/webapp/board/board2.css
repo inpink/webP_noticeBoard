@@ -1,23 +1,32 @@
 @charset "UTF-8";
+
 h2 {
-	text-align: center;
-	padding: 15px 0;
-}
+		text-align: center;
+		padding: 15px 0;
+	}
 	
 table {
 	border : 1px solid lightgrey;
 	border-collapse: collapse;
 	margin : auto;
 	width:95%;
-	background-color: #36BC9B;
 	
 }
-th, td {
+td {
 	border : 1px solid lightgrey;	
+	text-align : center;
+	color: #36BC9B;
+	font-weight: bold;
 	padding : 5px;
 }
-th, #btnBox {
+input { width : 99%; }
+#contentBox {
 	text-align : center;
+}
+#content {
+	width : 95%;
+	background-color: WhiteSmoke;
+	border : 1px solid lightgrey;
 }
 button {
 	width:15%;
@@ -26,6 +35,7 @@ button {
 	background-color : DodgerBlue;
 	color : white;
 	font-size : 1em;
+	text-align : center;
 	padding : 7px 10px;
 	margin : 10px;
 }

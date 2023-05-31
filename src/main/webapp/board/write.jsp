@@ -1,58 +1,61 @@
-<!-- 대충 복붙해왔음 -->
-<!-- 방명록 작성 html, css, js -->
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ì¤ìµ3-1</title>
+<title>방명록 입력</title>
 </head>
-<style>
-	h2 {
-		border-radius: 5px;
-		background-color: wheat;
-		text-align: center;
-		padding: 15px 0;
-	}
-	
-	#regform, #result {
-		padding: 15px 20px;
-		border-radius: 10px;
-		margin: auto;
-		width: 50%;
-		background-color: SandyBrown;
-	}
-</style>
+<link rel="stylesheet" href="board2.css"> 
 <script>
-	function signUp() {
-		alert("ì ë§ë¡ ê°ì íìê² ìµëê¹?");
-		document.getElementById("regform").style.display = "none";
-		document.getElementById("rname").innerHTML = document.form1.name.value;
-		document.getElementById("remail").innerHTML = document.form1.email.value;
-		document.getElementById("result").setAttribute("style","display: block; background-color:KhaKi;");
+	function upload() {
+		const name = document.getElementById("name").value;
+		const email = document.getElementById("email").value;
+		const title = document.getElementById("title").value;
+		const pwd = document.getElementById("pwd").value;
+		const content = document.getElementById("content").value;
+		
+		if (!(name && email && title && pwd && content)) {
+			alert("입력하지 않은 내용이 있습니다. 전체 내용을 채워주세요.");
+			return false;
+		} else { return true; }
+	}
+	function deleteAll() {
+		document.getElementById("name").value = "";
+		document.getElementById("email").value = "";
+		document.getElementById("title").value = "";
+		document.getElementById("pwd").value = "";
+		document.getElementById("content").value = "";
 	}
 </script>
 <body>
-	<h2>íì ê°ì</h2>
-	<hr>
-	<div id="regform">
-		<!-- 아래 주소, 파라미터로 post로 보내줘!  -->
-		<form name="form1" method="post" action="/webP_noticeBoard/upload_notice?action=addNotice">
-			<label>ì´ë¦</label><br>
-			<input type="text" name="name" size="40"><br>
-			<hr>
-			<label>ì´ë©ì¼</label><br>
-			<input type="email" name="email" size="40"><br>
-			<button type="button" onClick="signUp()">ê°ì</button>
+	<h2>방명록 입력</h2>
+	<div>
+		<form name="form1" method="post" action="/jwbook/upload_notice?action=addNotice"
+		onsubmit="return upload();">
+			<table>
+				<tr bgcolor="Gainsboro"><td>작성자</td>
+				<td><input type="text" id="name" size="10" name="name" class="form-control"/></td>
+				</tr>
+				<tr><td>이메일</td>
+				<td><input type="text" id="email" size="10" name="email" class="form-control"/></td>
+				</tr>
+				<tr><td>제목</td>
+				<td><input type="text" id="title"  size="10" name="title" class="form-control"/></td>
+				</tr>
+				<tr><td>비밀번호</td>
+				<td><input type="text" id="pwd"  size="10" name="pwd" class="form-control"/></td>
+				</tr>
+			</table>
+			<br>
+			<div id="contentBox">
+				<textarea rows="10" cols="20" id="content" name="content" class="form-control"></textarea>
+				<button type="submit">입력</button>
+				<button type="button" onClick="deleteAll()">취소</button>
+				<button type="button" onclick="location.href='/jwbook/upload_notice' ">목록</button>
+			</div>
 		</form>
 	</div>
-	<div id="result" class="result">
-		<h3>ê°ì ì ë³´</h3>
-		<hr>
-		ì´ë¦: <span id="rname"></span><br>
-		ì´ë©ì¼: <span id="remail"></span><br>
-	</div>
-	<script>
-		document.getElementById("result").style.display = "none";
-	</script>
 </body>
 </html>
