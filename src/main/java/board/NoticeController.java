@@ -16,29 +16,29 @@ import javax.servlet.http.Part;
 
 import org.apache.commons.beanutils.BeanUtils;
 
-//MVCì˜ Controllerì˜ ëª¨ë“  ì—­í• ì„ ì´ í•˜ë‚˜ì˜ íŒŒì¼ì—! 
-//ì›ë˜ëŠ” Controllerë„ ë¶„ë¦¬í•  ìˆ˜ ìˆìœ¼ë©´ í•˜ëŠ”ê²Œ ì¢‹ê¸´ í•˜ë‹¤
+//MVCÀÇ ControllerÀÇ ¸ğµç ¿ªÇÒÀ» ÀÌ ÇÏ³ªÀÇ ÆÄÀÏ¿¡! 
+//¿ø·¡´Â Controllerµµ ºĞ¸®ÇÒ ¼ö ÀÖÀ¸¸é ÇÏ´Â°Ô ÁÁ±ä ÇÏ´Ù
 
-//ì‚¬ìš© method ìš”ì•½
-//void init(): ì´ servlet ì£¼ì†Œë¡œ ìš”ì²­ ë“¤ì–´ì˜¤ë©´ ìµœì´ˆ 1íšŒ ìë™ ì‹¤í–‰. ì‹±ê¸€í†¤ DAO, servletcontext ê°ì²´ ë§Œë“¦
-//void service(): ì´ servlet ì£¼ì†Œë¡œ ìš”ì²­ ë“¤ì–´ì˜¤ë©´ 1íšŒ ìë™ ì‹¤í–‰. íŒŒë¼ë¯¸í„° íŒŒì‹±í•´ì„œ ì•„ë˜ ì¤‘ í•´ë‹¹ë˜ëŠ” Controller method ì‹¤í–‰í•´ì¤Œ
-//String addNotice(request)  : íŒŒë¼ë¯¸í„° íŒŒì‹±í•´ì„œ Notice n ê°ì²´ë¡œ ë§Œë“¤ì–´ì¤Œ. dao.addNotice(n); ì‹¤í–‰í•´ì„œ dbì—ì„œ í•´ë‹¹ ê°ì²´ ë°ì´í„° ì¶”ê°€í•˜ë„ë¡.
-   // ë¬¸ì œ ë°œìƒì‹œ ì˜ˆì™¸ ë°œìƒì‹œí‚´. ì„±ê³µì‹œ ëª©ë¡í™”ë©´(boardlist.jsp)ìœ¼ë¡œ ì´ë™
-//String fixNews(request) : addNoticeì™€ ë§¤ìš° ìœ ì‚¬í•œë°  dao.fixNotice(n) ë§Œ ë‹¤ë¦„
-//String listNotice(request) :  dao.getAll() ì‹¤í–‰í•´ì„œ dbì—ì„œ ëª¨ë“  Notice ê°ì²´ ë°›ì•„ì™€ì„œ List<Notice>ì— ì €ì¥í•´ì„œ requestì— ë‹´ìŒ. 
-   // ë¬¸ì œ ë°œìƒ ì‹œ ì—ëŸ¬ í™”ë©´ ëœ¸ìœ¼ë¡œ ì˜ˆìƒ. ì„±ê³µì‹œ ëª©ë¡í™”ë©´(boardlist.jsp)ìœ¼ë¡œ ì´ë™
-//String getNotice(request) : listNoticeì™€ ë§¤ìš° ìœ ì‚¬í•œë°, dao.getNotice() ì‹¤í–‰í•´ì„œ Notice ê°ì²´ 1ê°œë§Œ ë°›ì•„ì˜¤ëŠ”ê²Œ ë‹¤ë¦„.
-   // ë¬¸ì œ ë°œìƒ ì‹œ ì—ëŸ¬ í™”ë©´ ëœ¸ìœ¼ë¡œ ì˜ˆìƒ. ì„±ê³µì‹œ â˜†ìˆ˜ì •í™”ë©´(edit.jsp)ìœ¼ë¡œ ì´ë™
+//»ç¿ë method ¿ä¾à
+//void init(): ÀÌ servlet ÁÖ¼Ò·Î ¿äÃ» µé¾î¿À¸é ÃÖÃÊ 1È¸ ÀÚµ¿ ½ÇÇà. ½Ì±ÛÅæ DAO, servletcontext °´Ã¼ ¸¸µê
+//void service(): ÀÌ servlet ÁÖ¼Ò·Î ¿äÃ» µé¾î¿À¸é 1È¸ ÀÚµ¿ ½ÇÇà. ÆÄ¶ó¹ÌÅÍ ÆÄ½ÌÇØ¼­ ¾Æ·¡ Áß ÇØ´çµÇ´Â Controller method ½ÇÇàÇØÁÜ
+//String addNotice(request)  : ÆÄ¶ó¹ÌÅÍ ÆÄ½ÌÇØ¼­ Notice n °´Ã¼·Î ¸¸µé¾îÁÜ. dao.addNotice(n); ½ÇÇàÇØ¼­ db¿¡¼­ ÇØ´ç °´Ã¼ µ¥ÀÌÅÍ Ãß°¡ÇÏµµ·Ï.
+   // ¹®Á¦ ¹ß»ı½Ã ¿¹¿Ü ¹ß»ı½ÃÅ´. ¼º°ø½Ã ¸ñ·ÏÈ­¸é(boardlist.jsp)À¸·Î ÀÌµ¿
+//String fixNews(request) : addNotice¿Í ¸Å¿ì À¯»çÇÑµ¥  dao.fixNotice(n) ¸¸ ´Ù¸§
+//String listNotice(request) :  dao.getAll() ½ÇÇàÇØ¼­ db¿¡¼­ ¸ğµç Notice °´Ã¼ ¹Ş¾Æ¿Í¼­ List<Notice>¿¡ ÀúÀåÇØ¼­ request¿¡ ´ãÀ½. 
+   // ¹®Á¦ ¹ß»ı ½Ã ¿¡·¯ È­¸é ¶äÀ¸·Î ¿¹»ó. ¼º°ø½Ã ¸ñ·ÏÈ­¸é(boardlist.jsp)À¸·Î ÀÌµ¿
+//String getNotice(request) : listNotice¿Í ¸Å¿ì À¯»çÇÑµ¥, dao.getNotice() ½ÇÇàÇØ¼­ Notice °´Ã¼ 1°³¸¸ ¹Ş¾Æ¿À´Â°Ô ´Ù¸§.
+   // ¹®Á¦ ¹ß»ı ½Ã ¿¡·¯ È­¸é ¶äÀ¸·Î ¿¹»ó. ¼º°ø½Ã ¡Ù¼öÁ¤È­¸é(edit.jsp)À¸·Î ÀÌµ¿
 
 @WebServlet("/upload_notice")
 public class NoticeController extends HttpServlet {
 
-	private static final long serialVersionUID = 1L; //java dataë¥¼ ë‚´ë³´ë‚¼ ë•Œ ì§ë ¬í™”ë¥¼ í•˜ê²Œ ë¨. ì§ë ¬í™”/ì—­ì§ë ¬í™” ë•Œ ì‚¬ìš©í•  UIDë¥¼ ì§€ì •í•´ì¤˜ì•¼í•¨
+	private static final long serialVersionUID = 1L; //java data¸¦ ³»º¸³¾ ¶§ Á÷·ÄÈ­¸¦ ÇÏ°Ô µÊ. Á÷·ÄÈ­/¿ªÁ÷·ÄÈ­ ¶§ »ç¿ëÇÒ UID¸¦ ÁöÁ¤ÇØÁà¾ßÇÔ
 	
 	private NoticeDAO dao;
-	private ServletContext ctx; //ì„œë¸”ë¦¿ ì»¨í…Œì´ë„ˆì™€ í†µì‹ í•˜ê¸° ìœ„í•´ì„œ ì‚¬ìš©ë˜ëŠ” ë©”ì†Œë“œë¥¼ ì§€ì›í•˜ëŠ” ì¸í„°í˜ì´ìŠ¤
+	private ServletContext ctx; //¼­ºí¸´ ÄÁÅ×ÀÌ³Ê¿Í Åë½ÅÇÏ±â À§ÇØ¼­ »ç¿ëµÇ´Â ¸Ş¼Òµå¸¦ Áö¿øÇÏ´Â ÀÎÅÍÆäÀÌ½º
 
-	// ì›¹ ë¦¬ì†ŒìŠ¤ ê¸°ë³¸ ê²½ë¡œ ì§€ì •
+	// À¥ ¸®¼Ò½º ±âº» °æ·Î ÁöÁ¤
 	private final String START_PAGE = "board/boardslists.jsp";
 	
 	public void init(ServletConfig config) throws ServletException {
@@ -53,38 +53,38 @@ public class NoticeController extends HttpServlet {
 		
 		dao = new NoticeDAO();
 		
-		// ìë°” ë¦¬í”Œë ‰ì…˜ì„ ì‚¬ìš©í•´ if, switch ì—†ì´ ìš”ì²­ì— ë”°ë¼ êµ¬í˜„ ë©”ì„œë“œê°€ ì‹¤í–‰ë˜ë„ë¡ í•¨.
+		// ÀÚ¹Ù ¸®ÇÃ·º¼ÇÀ» »ç¿ëÇØ if, switch ¾øÀÌ ¿äÃ»¿¡ µû¶ó ±¸Çö ¸Ş¼­µå°¡ ½ÇÇàµÇµµ·Ï ÇÔ.
 		Method m;
 		String view = null;
 		
-		// action íŒŒë¼ë¯¸í„° ì—†ì´ ì ‘ê·¼í•œ ê²½ìš°
+		// action ÆÄ¶ó¹ÌÅÍ ¾øÀÌ Á¢±ÙÇÑ °æ¿ì
 		if (action == null) {
 			action = "listNotice";
 		}
 		
 		try {
-			// í˜„ì¬ í´ë˜ìŠ¤ì—ì„œ action ì´ë¦„ê³¼ HttpServletRequest ë¥¼ íŒŒë¼ë¯¸í„°ë¡œ í•˜ëŠ” ë©”ì„œë“œ ì°¾ìŒ
+			// ÇöÀç Å¬·¡½º¿¡¼­ action ÀÌ¸§°ú HttpServletRequest ¸¦ ÆÄ¶ó¹ÌÅÍ·Î ÇÏ´Â ¸Ş¼­µå Ã£À½
 			m = this.getClass().getMethod(action, HttpServletRequest.class);
 			
-			// ë©”ì„œë“œ ì‹¤í–‰í›„ ë¦¬í„´ê°’ ë°›ì•„ì˜´
+			// ¸Ş¼­µå ½ÇÇàÈÄ ¸®ÅÏ°ª ¹Ş¾Æ¿È
 			view = (String)m.invoke(this, request);
 		} catch (NoSuchMethodException e) {
 			e.printStackTrace();
-			// ì—ëŸ¬ ë¡œê·¸ë¥¼ ë‚¨ê¸°ê³  view ë¥¼ ë¡œê·¸ì¸ í™”ë©´ìœ¼ë¡œ ì§€ì •, ì•ì—ì„œì™€ ê°™ì´ redirection ì‚¬ìš©ë„ ê°€ëŠ¥.
-			ctx.log("ìš”ì²­ action ì—†ìŒ!!");
-			request.setAttribute("error", "action íŒŒë¼ë¯¸í„°ê°€ ì˜ëª» ë˜ì—ˆìŠµë‹ˆë‹¤!!");
+			// ¿¡·¯ ·Î±×¸¦ ³²±â°í view ¸¦ ·Î±×ÀÎ È­¸éÀ¸·Î ÁöÁ¤, ¾Õ¿¡¼­¿Í °°ÀÌ redirection »ç¿ëµµ °¡´É.
+			ctx.log("¿äÃ» action ¾øÀ½!!");
+			request.setAttribute("error", "action ÆÄ¶ó¹ÌÅÍ°¡ Àß¸ø µÇ¾ú½À´Ï´Ù!!");
 			view = START_PAGE;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	
-		// POST ìš”ì²­ ì²˜ë¦¬í›„ì—ëŠ” ë¦¬ë””ë ‰ì…˜ ë°©ë²•ìœ¼ë¡œ ì´ë™ í•  ìˆ˜ ìˆì–´ì•¼ í•¨.
+		// POST ¿äÃ» Ã³¸®ÈÄ¿¡´Â ¸®µğ·º¼Ç ¹æ¹ıÀ¸·Î ÀÌµ¿ ÇÒ ¼ö ÀÖ¾î¾ß ÇÔ.
 		if(view.startsWith("redirect:/")) {
-			// redirect/ ë¬¸ìì—´ ì´í›„ ê²½ë¡œë§Œ ê°€ì§€ê³  ì˜´
+			// redirect/ ¹®ÀÚ¿­ ÀÌÈÄ °æ·Î¸¸ °¡Áö°í ¿È
 			String rview = view.substring("redirect:/".length());
 			response.sendRedirect(rview);
 		} else {
-			// ì§€ì •ëœ ë·°ë¡œ í¬ì›Œë”©, í¬ì›Œë”©ì‹œ ì»¨í…ìŠ¤íŠ¸ê²½ë¡œëŠ” í•„ìš”ì—†ìŒ.
+			// ÁöÁ¤µÈ ºä·Î Æ÷¿öµù, Æ÷¿öµù½Ã ÄÁÅØ½ºÆ®°æ·Î´Â ÇÊ¿ä¾øÀ½.
 			RequestDispatcher dispatcher = request.getRequestDispatcher(view);
 			dispatcher.forward(request, response);	
 		}
@@ -93,35 +93,35 @@ public class NoticeController extends HttpServlet {
 	public String addNotice(HttpServletRequest request) {
 		Notice n = new Notice();
 		try {						
-	        // ì…ë ¥ê°’ì„ Notice ê°ì²´ë¡œ ë§¤í•‘
+	        // ÀÔ·Â°ªÀ» Notice °´Ã¼·Î ¸ÅÇÎ
 			BeanUtils.populate(n, request.getParameterMap());
 			dao.addNotice(n);
 		} catch (Exception e) {
 			e.printStackTrace();
-			ctx.log("ë°©ëª…ë¡ ì¶”ê°€ ê³¼ì •ì—ì„œ ë¬¸ì œ ë°œìƒ!");
-			request.setAttribute("error", "ë°©ëª…ë¡ì´ ì •ìƒì ìœ¼ë¡œ ë“±ë¡ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤!!");
+			ctx.log("¹æ¸í·Ï Ãß°¡ °úÁ¤¿¡¼­ ¹®Á¦ ¹ß»ı!");
+			request.setAttribute("error", "¹æ¸í·ÏÀÌ Á¤»óÀûÀ¸·Î µî·ÏµÇÁö ¾Ê¾Ò½À´Ï´Ù!!");
 			return listNotice(request);
 		}
 		
-		return "redirect:/upload_notice?action=listNotice"; //ë“±ë¡ ì™„ë£Œí–ˆìœ¼ë©´ ëª©ë¡ìœ¼ë¡œ ì´ë™ listNotice
+		return "redirect:/upload_notice?action=listNotice"; //µî·Ï ¿Ï·áÇßÀ¸¸é ¸ñ·ÏÀ¸·Î ÀÌµ¿ listNotice
 	}
 	 
 	 
 	 public String fixNews(HttpServletRequest request) {
 		 	Notice n = new Notice();
 		 	try {						
-		        // ì…ë ¥ê°’ì„ Notice ê°ì²´ë¡œ ë§¤í•‘
+		        // ÀÔ·Â°ªÀ» Notice °´Ã¼·Î ¸ÅÇÎ
 				BeanUtils.populate(n, request.getParameterMap());
 				
 				dao.fixNotice(n);
 			} catch (Exception e) {
 				e.printStackTrace();
-				ctx.log("ë°©ëª…ë¡ ìˆ˜ì • ê³¼ì •ì—ì„œ ë¬¸ì œ ë°œìƒ!");
-				request.setAttribute("error", "ë°©ëª…ë¡ì´ ì •ìƒì ìœ¼ë¡œ ìˆ˜ì •ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤!!");
+				ctx.log("¹æ¸í·Ï ¼öÁ¤ °úÁ¤¿¡¼­ ¹®Á¦ ¹ß»ı!");
+				request.setAttribute("error", "¹æ¸í·ÏÀÌ Á¤»óÀûÀ¸·Î ¼öÁ¤µÇÁö ¾Ê¾Ò½À´Ï´Ù!!");
 				return listNotice(request);
 			}
 			
-			return "redirect:/upload_notice?action=listNotice"; //ë“±ë¡ ì™„ë£Œí–ˆìœ¼ë©´ ëª©ë¡ìœ¼ë¡œ ì´ë™ listNotice
+			return "redirect:/upload_notice?action=listNotice"; //µî·Ï ¿Ï·áÇßÀ¸¸é ¸ñ·ÏÀ¸·Î ÀÌµ¿ listNotice
 			
 	} 
 	 
@@ -130,14 +130,14 @@ public class NoticeController extends HttpServlet {
 		 	List<Notice> list;
 			try {
 				list = dao.getAll();
-		    	request.setAttribute("noticelist", list); //jspì—ì„œ ì‚¬ìš©í•  ì´ë¦„ì€ noticelist
+		    	request.setAttribute("noticelist", list); //jsp¿¡¼­ »ç¿ëÇÒ ÀÌ¸§Àº noticelist
 			} catch (Exception e) {
 				e.printStackTrace();
-				ctx.log("ë°©ëª…ë¡ ëª©ë¡ ìƒì„± ê³¼ì •ì—ì„œ ë¬¸ì œ ë°œìƒ!!");
-				request.setAttribute("error", "ë°©ëª…ë¡ ëª©ë¡ì´ ì •ìƒì ìœ¼ë¡œ ì²˜ë¦¬ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤!!");
+				ctx.log("¹æ¸í·Ï ¸ñ·Ï »ı¼º °úÁ¤¿¡¼­ ¹®Á¦ ¹ß»ı!!");
+				request.setAttribute("error", "¹æ¸í·Ï ¸ñ·ÏÀÌ Á¤»óÀûÀ¸·Î Ã³¸®µÇÁö ¾Ê¾Ò½À´Ï´Ù!!");
 			}
 		 
-	    	return "board/boardlists.jsp"; //ëª¨ë“  Notice ëª©ë¡ì€ requestì— ë‹´ê²¨ì„œ boardlist ëª©ë¡ìœ¼ë¡œ ì „ë‹¬ë¨
+	    	return "board/boardlists.jsp"; //¸ğµç Notice ¸ñ·ÏÀº request¿¡ ´ã°Ü¼­ boardlist ¸ñ·ÏÀ¸·Î Àü´ŞµÊ
 	 }
 	 
 	 public String getNotice(HttpServletRequest request) {
@@ -146,14 +146,14 @@ public class NoticeController extends HttpServlet {
 		 
 	        try {
 	        	Notice n = dao.getNotice(aid);
-				request.setAttribute("notice", n); //jspì—ì„œ ì‚¬ìš©í•  ì´ë¦„ì€ notice
+				request.setAttribute("notice", n); //jsp¿¡¼­ »ç¿ëÇÒ ÀÌ¸§Àº notice
 			} catch (SQLException e) {
 				e.printStackTrace();
-				ctx.log("ë°©ëª…ë¡ 1ê°œë¥¼ ê°€ì ¸ì˜¤ëŠ” ê³¼ì •ì—ì„œ ë¬¸ì œ ë°œìƒ!!");
-				request.setAttribute("error", "ë°©ëª…ë¡ 1ê°œë¥¼ ì •ìƒì ìœ¼ë¡œ ê°€ì ¸ì˜¤ì§€ ëª»í–ˆìŠµë‹ˆë‹¤!!");
+				ctx.log("¹æ¸í·Ï 1°³¸¦ °¡Á®¿À´Â °úÁ¤¿¡¼­ ¹®Á¦ ¹ß»ı!!");
+				request.setAttribute("error", "¹æ¸í·Ï 1°³¸¦ Á¤»óÀûÀ¸·Î °¡Á®¿ÀÁö ¸øÇß½À´Ï´Ù!!");
 			}
 
 		 
-		 return "board/edit.jsp"; //ê°œë³„ ë°©ëª…ë¡ í´ë¦­í•˜ë©´ ìˆ˜ì • í™”ë©´ìœ¼ë¡œ ì´ë™í•¨
+		 return "board/edit.jsp"; //°³º° ¹æ¸í·Ï Å¬¸¯ÇÏ¸é ¼öÁ¤ È­¸éÀ¸·Î ÀÌµ¿ÇÔ
 	 }
 }
