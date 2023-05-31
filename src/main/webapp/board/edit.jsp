@@ -8,7 +8,47 @@
 <meta charset="UTF-8">
 <title>방명록 수정</title>
 </head>
-<link rel="stylesheet" href="board2.css"> 
+<style>
+	h2 {
+			text-align: center;
+			padding: 15px 0;
+		}
+		
+	table {
+		border : 1px solid lightgrey;
+		border-collapse: collapse;
+		margin : auto;
+		width:95%;
+		
+	}
+	td {
+		border : 1px solid lightgrey;	
+		text-align : center;
+		color: #36BC9B;
+		font-weight: bold;
+		padding : 5px;
+	}
+	input { width : 99%; }
+	#contentBox {
+		text-align : center;
+	}
+	#content {
+		width : 95%;
+		background-color: WhiteSmoke;
+		border : 1px solid lightgrey;
+	}
+	button {
+		width:15%;
+		border : 1px solid rgba(0, 0, 0, 0);
+		border-radius : 5px;
+		background-color : DodgerBlue;
+		color : white;
+		font-size : 1em;
+		text-align : center;
+		padding : 7px 10px;
+		margin : 10px;
+	}
+</style>
 <script>
 	function fixNotice() {
 		const name = document.getElementById("name").value;

@@ -9,24 +9,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 //Data Access Object
-//DB¿¡ Á¢±ÙÇÏ´Â ·ÎÁ÷ ºĞ¸®
-//DAO´Â MVC Áß Model¿¡ ÇØ´ç 
+//DBì— ì ‘ê·¼í•˜ëŠ” ë¡œì§ ë¶„ë¦¬
+//DAOëŠ” MVC ì¤‘ Modelì— í•´ë‹¹ 
 
-//»ç¿ë method ¿ä¾à
-//Connection open() :  DB ¿¬°áÀ» °¡Á®¿À´Â ¸Ş¼­µå, DB Á¤º¸ ´ãÀº Connection °´Ã¼ ¹İÈ¯
-//List<Notice> getAll() : ¸ğµç Noticeµé¸¦ Notice °´Ã¼¿¡ ´ã¾Æ List<Notice>ÇüÅÂ·Î °¡Á®¿È
-//Notice getNotice (int aid) : aid¿Í ÀÏÄ¡ÇÏ´Â Notice 1°³¸¦ Notice °´Ã¼·Î ¹İÈ¯ÇÔ
-//void addNotice (Notice n) : News °´Ã¼ nÀ» Db¿¡ ³ÖÀ½
+//ì‚¬ìš© method ìš”ì•½
+//Connection open() :  DB ì—°ê²°ì„ ê°€ì ¸ì˜¤ëŠ” ë©”ì„œë“œ, DB ì •ë³´ ë‹´ì€ Connection ê°ì²´ ë°˜í™˜
+//List<Notice> getAll() : ëª¨ë“  Noticeë“¤ë¥¼ Notice ê°ì²´ì— ë‹´ì•„ List<Notice>í˜•íƒœë¡œ ê°€ì ¸ì˜´
+//Notice getNotice (int aid) : aidì™€ ì¼ì¹˜í•˜ëŠ” Notice 1ê°œë¥¼ Notice ê°ì²´ë¡œ ë°˜í™˜í•¨
+//void addNotice (Notice n) : News ê°ì²´ nì„ Dbì— ë„£ìŒ
 
-//¹Ì»ç¿ë
-//void delNotice(int aid) : aid¿Í ÀÏÄ¡ÇÏ´Â Notice¸¦ »èÁ¦ÇÏ´Â sql¹® ½ÇÇà, ÀÏÄ¡ÇÏ´Â aid°¡ DB¿¡ ¾øÀ¸¸é ¿¡·¯ ¹ß»ı 
+//ë¯¸ì‚¬ìš©
+//void delNotice(int aid) : aidì™€ ì¼ì¹˜í•˜ëŠ” Noticeë¥¼ ì‚­ì œí•˜ëŠ” sqlë¬¸ ì‹¤í–‰, ì¼ì¹˜í•˜ëŠ” aidê°€ DBì— ì—†ìœ¼ë©´ ì—ëŸ¬ ë°œìƒ 
 
 public class NoticeDAO {
 	
 	final String JDBC_DRIVER = "org.h2.Driver";
 	final String JDBC_URL = "jdbc:h2:tcp://localhost/~/jwbookdb";
 	
-	// DB ¿¬°áÀ» °¡Á®¿À´Â ¸Ş¼­µå, DBCP¸¦ »ç¿ëÇÏ´Â °ÍÀÌ ÁÁÀ½
+	// DB ì—°ê²°ì„ ê°€ì ¸ì˜¤ëŠ” ë©”ì„œë“œ, DBCPë¥¼ ì‚¬ìš©í•˜ëŠ” ê²ƒì´ ì¢‹ìŒ
 	public Connection open() {
 		Connection conn = null;
 		try {
@@ -43,23 +43,23 @@ public class NoticeDAO {
 		List<Notice> NoticeList = new ArrayList<>();
 		
 		//TODO 
-		//±×³É date½áµµ ¹®Á¦¾ø¾î º¸ÀÌ´Âµ¥ / PARSEDATETIME´Â string to Date ¶ó°í ÇÔ
-		//Çü½Ä 0000-00-00·Î º¯°æÇÏ·Á¸é ¿À¸¥ÂÊ sql »ç¿ë : select aid, name,email,FORMATDATETIME(DATE, 'yyyy-MM-dd') as cdate  ,title,pwd,content  from notices
+		//ê·¸ëƒ¥ dateì¨ë„ ë¬¸ì œì—†ì–´ ë³´ì´ëŠ”ë° / PARSEDATETIMEëŠ” string to Date ë¼ê³  í•¨
+		//í˜•ì‹ 0000-00-00ë¡œ ë³€ê²½í•˜ë ¤ë©´ ì˜¤ë¥¸ìª½ sql ì‚¬ìš© : select aid, name,email,FORMATDATETIME(DATE, 'yyyy-MM-dd') as cdate  ,title,pwd,content  from notices
 		String sql = "select aid, name,email,PARSEDATETIME(date,'yyyy-MM-dd hh:mm:ss') as cdate ,title,pwd,content  from notices";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		ResultSet rs = pstmt.executeQuery();
 		
 		try(conn; pstmt; rs) {
 			while(rs.next()) {
-				//TODO "¹æ¸í·Ï ¸ñ·Ï"¿¡¼­ ÇÊ¿äÇÑ µ¥ÀÌÅÍ´Â aid, name, email, date, titleÀÓ. ÀÏ´Ü ´Ù ³Ö¾îÁÜ
+				//TODO "ë°©ëª…ë¡ ëª©ë¡"ì—ì„œ í•„ìš”í•œ ë°ì´í„°ëŠ” aid, name, email, date, titleì„. ì¼ë‹¨ ë‹¤ ë„£ì–´ì¤Œ
 				Notice n = new Notice();
 				n.setAid(rs.getInt("aid"));
 				n.setName(rs.getString("name"));
 				n.setEmail(rs.getString("email")); 
 				n.setDate(rs.getString("cdate")); 
 				n.setTitle(rs.getString("title"));
-				n.setPwd(rs.getString("pwd")); //ºÒÇÊ¿äÇÒÁöµµ
-				n.setContent(rs.getString("content")); //ºÒÇÊ¿äÇÒÁöµµ
+				n.setPwd(rs.getString("pwd")); //ë¶ˆí•„ìš”í• ì§€ë„
+				n.setContent(rs.getString("content")); //ë¶ˆí•„ìš”í• ì§€ë„
 				
 				NoticeList.add(n);
 			}
@@ -72,17 +72,17 @@ public class NoticeDAO {
 		
 		Notice n = new Notice();
 		
-		//¸¶Âù°¡Áö·Î date 0000-00-00·Î ¹Ş¾Æ¿À·Á¸é FORMATDATETIME(DATE, 'yyyy-MM-dd') »ç¿ë
+		//ë§ˆì°¬ê°€ì§€ë¡œ date 0000-00-00ë¡œ ë°›ì•„ì˜¤ë ¤ë©´ FORMATDATETIME(DATE, 'yyyy-MM-dd') ì‚¬ìš©
 		String sql = "select aid, name,email,PARSEDATETIME(date,'yyyy-MM-dd hh:mm:ss') as cdate ,title,pwd,content  from notices where aid=?";
 	
 		PreparedStatement pstmt = conn.prepareStatement(sql);
-		pstmt.setInt(1, aid); //?¿¡ aid ³Ö±â
+		pstmt.setInt(1, aid); //?ì— aid ë„£ê¸°
 		ResultSet rs = pstmt.executeQuery();
 		
 		rs.next();
 		
 		try(conn; pstmt; rs) {
-			//"°Ô½Ã±Û ¼öÁ¤"ÇÒ ¶§ ÇÊ¿äÇÑ µ¥ÀÌÅÍ (ÀüºÎ ´Ù ÇÊ¿ä)
+			//"ê²Œì‹œê¸€ ìˆ˜ì •"í•  ë•Œ í•„ìš”í•œ ë°ì´í„° (ì „ë¶€ ë‹¤ í•„ìš”)
 			n.setAid(rs.getInt("aid"));
 			n.setName(rs.getString("name"));
 			n.setEmail(rs.getString("email")); 
@@ -125,7 +125,7 @@ public class NoticeDAO {
 			String orinPwd= orinN.getPwd();
 			String newPwd= n.getPwd();
 			
-			if (! orinPwd.equals(newPwd)) throw new Exception("ºñ¹Ğ¹øÈ£°¡ ¸ÂÁö ¾Ê½À´Ï´Ù!");
+			if (! orinPwd.equals(newPwd)) throw new Exception("ë¹„ë°€ë²ˆí˜¸ê°€ ë§ì§€ ì•ŠìŠµë‹ˆë‹¤!");
 			
 			pstmt.setString(1, n.getEmail());
 			pstmt.setString(2,  n.getTitle());
