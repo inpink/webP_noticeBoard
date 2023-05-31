@@ -41,8 +41,14 @@
 		margin : 10px;
 	}
 </style>
+<script>
+	function doAction() {
+		var s = document.getElementById('td')
+		onclick="/jwbook/upload_notice?action=getNotice"
+	}
+</script>
 <body>
-    <h2>방명록 목록</h2> 
+    <h2>방명록 목록</h2>
     <div>
     	<table>
 			<tr bgcolor="WhiteSmoke">
@@ -54,7 +60,7 @@
 				<td>${notice.name}</td>
 				<td>${notice.email}</td>
 				<td>${notice.date}</td>
-				<td onclick="location.href='/jwbook/board/edit.jsp' ">${notice.title}</td>
+				<td><a href="/jwbook/upload_notice?action=getNotice&aid=${notice.aid}">${notice.title}</a></td>
 			</tr>
 			</c:forEach>
 		</table>

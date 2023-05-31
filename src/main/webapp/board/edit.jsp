@@ -31,35 +31,27 @@
 	}
 </script>
 <body>
-	<%
-		String name=request.getParameter("name");
-		String email=request.getParameter("email");
-		String title=request.getParameter("title");
-		String pwd=request.getParameter("pwd");
-		String content=request.getParameter("content");
-	%>
 	<h2>방명록 수정</h2>
 	<div>
-		<form name="form2" method="post" action="/jwbook/upload_notice?action=fixNotice"
+		<form name="form2" method="post" action="/jwbook/upload_notice?action=fixNotice&aid=${notice.aid}"
 		onsubmit="return fixNotice();">
 			<table>
-			
 				<tr bgcolor="Gainsboro"><td>작성자</td>
-				<td><input type="text" id="name" size="10" name="name" class="form-control" value="<%=name %>"/></td>
+				<td><input type="text" id="name" size="10" name="name" class="form-control" value="${notice.name}"/></td>
 				</tr>
 				<tr><td>이메일</td>
-				<td><input type="text" id="email" size="10" name="email" class="form-control" value="<%=email %>"/></td>
+				<td><input type="text" id="email" size="10" name="email" class="form-control" value="${notice.email}"/></td>
 				</tr>
 				<tr><td>제목</td>
-				<td><input type="text" id="title"  size="10" name="title" class="form-control" value="<%=title %>"/></td>
+				<td><input type="text" id="title"  size="10" name="title" class="form-control" value="${notice.title}"/></td>
 				</tr>
 				<tr><td>비밀번호</td>
-				<td><input type="text" id="pwd"  size="10" name="pwd" class="form-control" value="<%=pwd %>"/></td>
+				<td><input type="text" id="pwd"  size="10" name="pwd" class="form-control" value="${notice.pwd}"/></td>
 				</tr>
 			</table>
 			<br>
 			<div id="contentBox">
-				<textarea rows="10" cols="20" id="content" name="content" class="form-control"><%=content %></textarea>
+				<textarea rows="10" cols="20" id="content" name="content" class="form-control">${notice.content}</textarea>
 				<button type="submit">수정</button>
 				<button type="button" onClick="deleteAll()">삭제</button>
 				<button type="button" onclick="location.href='/jwbook/upload_notice' ">목록</button>

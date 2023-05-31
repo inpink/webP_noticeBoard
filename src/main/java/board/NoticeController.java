@@ -107,12 +107,11 @@ public class NoticeController extends HttpServlet {
 	}
 	 
 	 
-	 public String fixNews(HttpServletRequest request) {
+	 public String fixNotice(HttpServletRequest request) {
 		 	Notice n = new Notice();
 		 	try {						
 		        // 입력값을 Notice 객체로 매핑
 				BeanUtils.populate(n, request.getParameterMap());
-				
 				dao.fixNotice(n);
 			} catch (Exception e) {
 				e.printStackTrace();
