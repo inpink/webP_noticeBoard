@@ -9,24 +9,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 //Data Access Object
-//DB�� �����ϴ� ���� �и�
-//DAO�� MVC �� Model�� �ش� 
+//DB에 접근하는 로직 분리
+//DAO는 MVC 중 Model에 해당 
 
-//��� method ���
-//Connection open() :  DB ������ �������� �޼���, DB ���� ���� Connection ��ü ��ȯ
-//List<Notice> getAll() : ��� Notice�鸦 Notice ��ü�� ��� List<Notice>���·� ������
-//Notice getNotice (int aid) : aid�� ��ġ�ϴ� Notice 1���� Notice ��ü�� ��ȯ��
-//void addNotice (Notice n) : News ��ü n�� Db�� ����
+//사용 method 요약
+//Connection open() :  DB 연결을 가져오는 메서드, DB 정보 담은 Connection 객체 반환
+//List<Notice> getAll() : 모든 Notice들를 Notice 객체에 담아 List<Notice>형태로 가져옴
+//Notice getNotice (int aid) : aid와 일치하는 Notice 1개를 Notice 객체로 반환함
+//void addNotice (Notice n) : News 객체 n을 Db에 넣음
 
-//�̻��
-//void delNotice(int aid) : aid�� ��ġ�ϴ� Notice�� �����ϴ� sql�� ����, ��ġ�ϴ� aid�� DB�� ������ ���� �߻� 
+//미사용
+//void delNotice(int aid) : aid와 일치하는 Notice를 삭제하는 sql문 실행, 일치하는 aid가 DB에 없으면 에러 발생 
 
 public class NoticeDAO {
 	
 	final String JDBC_DRIVER = "org.h2.Driver";
 	final String JDBC_URL = "jdbc:h2:tcp://localhost/~/jwbookdb";
 	
-	// DB ������ �������� �޼���, DBCP�� ����ϴ� ���� ����
+	// DB 연결을 가져오는 메서드, DBCP를 사용하는 것이 좋음
 	public Connection open() {
 		Connection conn = null;
 		try {
@@ -43,23 +43,23 @@ public class NoticeDAO {
 		List<Notice> NoticeList = new ArrayList<>();
 		
 		//TODO 
-		//�׳� date�ᵵ �������� ���̴µ� / PARSEDATETIME�� string to Date ��� ��
-		//���� 0000-00-00�� �����Ϸ��� ������ sql ��� : select aid, name,email,FORMATDATETIME(DATE, 'yyyy-MM-dd') as cdate  ,title,pwd,content  from notices
+		//그냥 date써도 문제없어 보이는데 / PARSEDATETIME는 string to Date 라고 함
+		//형식 0000-00-00로 변경하려면 오른쪽 sql 사용 : select aid, name,email,FORMATDATETIME(DATE, 'yyyy-MM-dd') as cdate  ,title,pwd,content  from notices
 		String sql = "select aid, name,email,PARSEDATETIME(date,'yyyy-MM-dd hh:mm:ss') as cdate ,title,pwd,content  from notices";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		ResultSet rs = pstmt.executeQuery();
 		
 		try(conn; pstmt; rs) {
 			while(rs.next()) {
-				//TODO "���� ���"���� �ʿ��� �����ʹ� aid, name, email, date, title��. �ϴ� �� �־���
+				//TODO "방명록 목록"에서 필요한 데이터는 aid, name, email, date, title임. 일단 다 넣어줌
 				Notice n = new Notice();
 				n.setAid(rs.getInt("aid"));
 				n.setName(rs.getString("name"));
 				n.setEmail(rs.getString("email")); 
 				n.setDate(rs.getString("cdate")); 
 				n.setTitle(rs.getString("title"));
-				n.setPwd(rs.getString("pwd")); //���ʿ�������
-				n.setContent(rs.getString("content")); //���ʿ�������
+				n.setPwd(rs.getString("pwd")); //불필요할지도
+				n.setContent(rs.getString("content")); //불필요할지도
 				
 				NoticeList.add(n);
 			}
@@ -72,18 +72,17 @@ public class NoticeDAO {
 		
 		Notice n = new Notice();
 		
-		//���������� date 0000-00-00�� �޾ƿ����� FORMATDATETIME(DATE, 'yyyy-MM-dd') ���
+		//마찬가지로 date 0000-00-00로 받아오려면 FORMATDATETIME(DATE, 'yyyy-MM-dd') 사용
 		String sql = "select aid, name,email,PARSEDATETIME(date,'yyyy-MM-dd hh:mm:ss') as cdate ,title,pwd,content  from notices where aid=?";
 	
 		PreparedStatement pstmt = conn.prepareStatement(sql);
-		pstmt.setInt(1, aid); //?�� aid �ֱ�
-		System.out.println("getNotice 원래 aid"+aid+sql);
+		pstmt.setInt(1, aid); //?에 aid 넣기
 		ResultSet rs = pstmt.executeQuery();
 		
 		rs.next();
 		
 		try(conn; pstmt; rs) {
-			//"�Խñ� ����"�� �� �ʿ��� ������ (���� �� �ʿ�)
+			//"게시글 수정"할 때 필요한 데이터 (전부 다 필요)
 			n.setAid(rs.getInt("aid"));
 			n.setName(rs.getString("name"));
 			n.setEmail(rs.getString("email")); 
@@ -103,7 +102,6 @@ public class NoticeDAO {
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		
 		try(conn; pstmt) {
-			System.out.println("DAO addNotice n.getAid()"+n.getAid()+sql);
 			pstmt.setString(1, n.getName());
 			pstmt.setString(2, n.getEmail());
 			pstmt.setString(3, n.getTitle());
@@ -122,13 +120,12 @@ public class NoticeDAO {
 		
 		
 		try(conn; pstmt) {
-			System.out.println("fixNotice n.getAid()"+n.getAid()+sql);
-			//비밀번호 같은지 검사하는 기능
-			/*Notice orinN= getNotice(n.getAid());
+			
+			Notice orinN= getNotice(n.getAid());
 			String orinPwd= orinN.getPwd();
 			String newPwd= n.getPwd();
 			
-			if (! orinPwd.equals(newPwd)) throw new Exception("��й�ȣ�� ���� �ʽ��ϴ�!");*/
+			if (! orinPwd.equals(newPwd)) throw new Exception("비밀번호가 맞지 않습니다!");
 			
 			pstmt.setString(1, n.getEmail());
 			pstmt.setString(2,  n.getTitle());
