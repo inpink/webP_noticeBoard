@@ -8,47 +8,7 @@
 <meta charset="UTF-8">
 <title>방명록 수정</title>
 </head>
-<style>
-	h2 {
-			text-align: center;
-			padding: 15px 0;
-		}
-		
-	table {
-		border : 1px solid lightgrey;
-		border-collapse: collapse;
-		margin : auto;
-		width:95%;
-		
-	}
-	td {
-		border : 1px solid lightgrey;	
-		text-align : center;
-		color: #36BC9B;
-		font-weight: bold;
-		padding : 5px;
-	}
-	input { width : 99%; }
-	#contentBox {
-		text-align : center;
-	}
-	#content {
-		width : 95%;
-		background-color: WhiteSmoke;
-		border : 1px solid lightgrey;
-	}
-	button {
-		width:15%;
-		border : 1px solid rgba(0, 0, 0, 0);
-		border-radius : 5px;
-		background-color : DodgerBlue;
-		color : white;
-		font-size : 1em;
-		text-align : center;
-		padding : 7px 10px;
-		margin : 10px;
-	}
-</style>
+<link rel="stylesheet" href="board/board2.css"/>
 <script>
 	function fixNotice() {
 		const name = document.getElementById("name").value;
@@ -63,7 +23,6 @@
 		} else { return true; }
 	}
 	function deleteAll() {
-		document.getElementById("name").value = "";
 		document.getElementById("email").value = "";
 		document.getElementById("title").value = "";
 		document.getElementById("pwd").value = "";
@@ -77,7 +36,7 @@
 		onsubmit="return fixNotice();">
 			<table>
 				<tr bgcolor="Gainsboro"><td>작성자</td>
-				<td><input type="text" id="name" size="10" name="name" class="form-control" value="${notice.name}"/></td>
+				<td><input type="text" id="name" size="10" name="name" class="form-control" value="${notice.name}" disabled/></td>
 				</tr>
 				<tr><td>이메일</td>
 				<td><input type="text" id="email" size="10" name="email" class="form-control" value="${notice.email}"/></td>
