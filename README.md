@@ -29,21 +29,33 @@
 　   
 　   
 　   
-    
+
+## 구현 사항
+
+![image](https://github.com/inpink/webP_noticeBoard/assets/108166692/0a0a5f9b-30c8-4c3b-90c1-764b3f6ffc0c)
+
+　   
+　   
+　   
+　   
+
+
 ## Execution Result
 
 > 방명록 목록
+
+![image](https://github.com/inpink/webP_noticeBoard/assets/108166692/30cf1ac1-b9db-487d-a44b-14c43a1bddd3)
 
  　   
  　   
 > 방명록 등록
 
+![image](https://github.com/inpink/webP_noticeBoard/assets/108166692/6294b498-c3ac-4eb6-aff1-d7a8b5709a8b)
+
  　   
  　   
 > 방명록 수정
 
- 　   
- 　   
-## 구현 사항
+![image](https://github.com/inpink/webP_noticeBoard/assets/108166692/2fece1db-9386-4f28-8174-558f66651a2d)
 
-![image](https://github.com/inpink/webP_noticeBoard/assets/108166692/0a0a5f9b-30c8-4c3b-90c1-764b3f6ffc0c)
+ 　   
