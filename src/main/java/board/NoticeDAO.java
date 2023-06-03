@@ -115,7 +115,7 @@ public class NoticeDAO {
 	public void fixNotice(Notice n) throws Exception {
 		Connection conn = open();
 		
-		String sql = "update notices set EMAIL=?, date=FORMATDATETIME(CURRENT_TIMESTAMP(),'yyyy-MM-dd'), title=?, pwd=?, content=? where aid=?";
+		String sql = "update notices set EMAIL=?, date=PARSEDATETIME(CURRENT_TIMESTAMP(),'yyyy-MM-dd hh:mm:ss'), title=?, pwd=?, content=? where aid=?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		
 		
