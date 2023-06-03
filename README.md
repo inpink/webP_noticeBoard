@@ -1,5 +1,6 @@
 # 웹프로그래밍[03]반 과제#2 　 
-방명록 구현하기
+🏅 주제 : 방명록 구현하기　   
+🥇 사용 : Java, JSP, html/css, JavaScript, h2 DB 　   
 
 　   
 ## Group Members
@@ -24,3 +25,19 @@
 > getNews() Sequence Diagram
 
 ![image](https://github.com/inpink/webP_noticeBoard/assets/108166692/887b50cd-9e8a-4724-a577-08ba6b8164d7)
+　   
+　   
+　   
+　   
+    
+## execution result
+
+> 방명록 목록
+
+
+
+> 방명록 등록
+
+
+
+> 방명록 수정
