@@ -8,45 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>방명록 앱</title>
 </head>
-<style>
-	h2 {
-		text-align: center;
-		padding: 15px 0;
-	}
-		
-	table {
-		border : 1px solid lightgrey;
-		border-collapse: collapse;
-		margin : auto;
-		width:95%;
-		background-color: #36BC9B;
-		
-	}
-	th, td {
-		border : 1px solid lightgrey;	
-		padding : 5px;
-	}
-	th, #btnBox {
-		text-align : center;
-	}
-	button {
-		width:15%;
-		border : 1px solid rgba(0, 0, 0, 0);
-		border-radius : 5px;
-		background-color : DodgerBlue;
-		color : white;
-		font-size : 1em;
-		text-align : center;
-		padding : 7px 10px;
-		margin : 10px;
-	}
-</style>
-<script>
-	function doAction() {
-		var s = document.getElementById('td')
-		onclick="/jwbook/upload_notice?action=getNotice"
-	}
-</script>
+<link rel="stylesheet" type="text/css" href="board/board.css"/>
 <body>
     <h2>방명록 목록</h2>
     <div>
