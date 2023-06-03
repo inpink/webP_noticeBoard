@@ -32,8 +32,8 @@
 
 ## 구현 사항
 
-![image](https://github.com/inpink/webP_noticeBoard/assets/108166692/0a0a5f9b-30c8-4c3b-90c1-764b3f6ffc0c)
-
+![image](https://github.com/inpink/webP_noticeBoard/assets/108166692/0a0a5f9b-30c8-4c3b-90c1-764b3f6ffc0c)　   
++) 비밀번호가 틀릴 경우 방명록 수정이 되지 않습니다.
 　   
 　   
 　   
