@@ -2,7 +2,7 @@ boards 테이블 생성하는 sql문 작성
 h2 db 정보
 드라이버 클래스 : org.h2.Driver
 주소 : jdbc:h2:tcp://localhost/~/jwbookdb
-username : jwbook
+username : jwbookdb
 비번 : 1234
 
 //테이블 삭제
